@@ -1,25 +1,36 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React ,{useState} from 'react';
+import { createMuiTheme } from '@material-ui/core/styles';
+import { ThemeProvider } from '@material-ui/styles';
+
+import LandingPage from './landing/landing-page.jsx';
+import ChatPage from './chat/chat-page.jsx';
+
+
+const theme = createMuiTheme({
+  palette: {
+    primary: { main: '#FFB300' },
+    secondary: { main: '#26C6DA' }
+  },
+
+});
+
 
 function App() {
+  const [mode, setMode] = useState(0);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      { mode === 0 ? (
+          <LandingPage
+            handleChangeMode={() => setMode(!mode)}
+          />
+        ) : (
+          <ChatPage
+            handleChangeMode={() => setMode(!mode)}
+          />
+        )
+      }
+    </ThemeProvider>
   );
 }
 
